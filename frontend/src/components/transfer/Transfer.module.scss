@@ -1,0 +1,70 @@
+.transfer {
+  background-color: white;
+  border-color: black;
+  border-radius: 10px;
+  border-style: solid;
+  cursor: pointer;
+  font-size: 2.2vh;
+  padding: 1.5vh 3vh;
+}
+
+.modal {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  margin-top: 30vh;
+  position: absolute;
+  justify-content: center;
+  width: 100%;
+  z-index: 6;
+
+  .transferForm {
+    align-items: center;
+    background-color: white;
+    background-color: #eee;
+    border-radius: 20px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    padding: 5vh;
+    width: 30vw;
+    position: relative;
+
+    .close {
+      background-color: none;
+      border-style: none;
+      color: red;
+      cursor: pointer;
+      font-size: 3vh;
+      right: 20px;
+      top: 10px;
+      position: absolute;
+    }
+    input {
+      margin-top: 3vh;
+      width: 90%;
+    }
+    .send {
+      background-color: white;
+      border-color: black;
+      border-radius: 5px;
+      border-style: solid;
+      cursor: pointer;
+      font-size: 2.2vh;
+      margin-top: 3vh;
+      padding: 1vh;
+      width: 90%;
+    }
+  }
+}
+
+.tint {
+  background-color: black;
+  height: 100%;
+  left: 0;
+  opacity: 0.8;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 5;
+}
