@@ -22,7 +22,7 @@ The DAO is a fork of Compound Finance's current governance module (Governor Brav
 
 ## Deployment
 
-The deployment script can be found in `migrations/1_deploy.js` and can be used to deploy the DAO and provides examples of basic calls that can be made to the governance contracts.
+The deployment script can be found in `migrations/1_deploy.js` and can be used to deploy the DAO.
 
 First, we deploy the token and pass in the developer address which receives the initial supply of tokens. Then, we deploy the timelock with the developer address and chosen timelock delay (between 2 and 30 days). The developer address is set as the temporary admin of the timelock. Next, we deploy the GovernorBravoDelegate contract. Finally, we pass in the timelock address, token address, developer address, GovernorBravoDelegate address, voting period, voting delay, and proposal threshold to deploy GovernorBravoDelegator.
 

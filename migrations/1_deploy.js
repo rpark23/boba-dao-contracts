@@ -5,9 +5,9 @@ const Timelock = artifacts.require("Timelock");
 const GovernorBravoDelegate = artifacts.require("GovernorBravoDelegate");
 const GovernorBravoDelegator = artifacts.require("GovernorBravoDelegator");
 
-module.exports = async function (deployer, network, accounts) {
+module.exports = async function (deployer) {
   const provider = new ethers.providers.JsonRpcProvider();
-  const developer = accounts[0];
+  const developer = "DEVELOPER_ADDRESS";
 
   // Deploy Comp, Timelock, GovernorBravoDelegate
   await deployer.deploy(Comp, developer);
@@ -73,34 +73,5 @@ module.exports = async function (deployer, network, accounts) {
   );
 
   const GovernorBravo = await GovernorBravoDelegate.at(delegator.address);
-  GovernorBravo._initiate();
-
-  // Transfer 1,000,000 tokens to other accounts and claim voting power
-  for (let i = 1; i < 10; i++) {
-    await comp.transfer(accounts[i], ethers.utils.parseEther("1000000"));
-    await comp.delegate(accounts[i], { from: accounts[i] });
-  }
-  await comp.delegate(developer);
-
-  // Create a Proposal to Increase Voting Period to 7 days
-  await GovernorBravo.propose(
-    [delegator.address],
-    [0],
-    ["_setVotingPeriod(uint256)"],
-    [ethers.utils.defaultAbiCoder.encode(["uint256"], [7 * 5760])],
-    "Increase Voting Period\nGive token users more time to vote on proposals"
-  );
-
-  // Create a Proposal to Increase Voting Delay to 2 days
-  await GovernorBravo.propose(
-    [delegator.address],
-    [0],
-    ["_setVotingDelay(uint256)"],
-    [ethers.utils.defaultAbiCoder.encode(["uint256"], [2 * 5760])],
-    "Increase Voting Delay\nAllow token users more time to review proposals",
-    { from: accounts[1] }
-  );
-
-  // Vote in support of proposal #2 (0 = against, 1 = for, 2 = abstain)
-  await GovernorBravo.castVote(2, 1);
+  await GovernorBravo._initiate();
 };
