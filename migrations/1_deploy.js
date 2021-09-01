@@ -73,7 +73,7 @@ module.exports = async function (deployer, network, accounts) {
   );
 
   const GovernorBravo = await GovernorBravoDelegate.at(delegator.address);
-  GovernorBravo._initiate();
+  await GovernorBravo._initiate();
 
   // Transfer 1,000,000 tokens to other accounts and claim voting power
   for (let i = 1; i < 3; i++) {
