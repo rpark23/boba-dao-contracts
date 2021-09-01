@@ -1,6 +1,6 @@
 const { ethers } = require("ethers");
 
-const Boba = artifacts.require("Boba");
+const Comp = artifacts.require("Comp");
 const Timelock = artifacts.require("Timelock");
 const GovernorBravoDelegate = artifacts.require("GovernorBravoDelegate");
 const GovernorBravoDelegator = artifacts.require("GovernorBravoDelegator");
@@ -9,9 +9,9 @@ module.exports = async function (deployer, network, accounts) {
   const provider = new ethers.providers.JsonRpcProvider();
   const developer = accounts[0];
 
-  // Deploy Boba, Timelock, GovernorBravoDelegate
-  await deployer.deploy(Boba, developer);
-  const boba = await Boba.deployed();
+  // Deploy Comp, Timelock, GovernorBravoDelegate
+  await deployer.deploy(Comp, developer);
+  const comp = await Comp.deployed();
 
   const TIMELOCK_DELAY = 0;
   await deployer.deploy(Timelock, developer, TIMELOCK_DELAY);
@@ -27,7 +27,7 @@ module.exports = async function (deployer, network, accounts) {
   await deployer.deploy(
     GovernorBravoDelegator,
     timelock.address,
-    boba.address,
+    comp.address,
     developer,
     delegate.address,
     VOTING_PERIOD,
@@ -77,10 +77,10 @@ module.exports = async function (deployer, network, accounts) {
 
   // Transfer 1,000,000 tokens to other accounts and claim voting power
   for (let i = 1; i < 10; i++) {
-    await boba.transfer(accounts[i], ethers.utils.parseEther("1000000"));
-    await boba.delegate(accounts[i], { from: accounts[i] });
+    await comp.transfer(accounts[i], ethers.utils.parseEther("1000000"));
+    await comp.delegate(accounts[i], { from: accounts[i] });
   }
-  await boba.delegate(developer);
+  await comp.delegate(developer);
 
   // Create a Proposal to Increase Voting Period to 7 days
   await GovernorBravo.propose(
@@ -88,7 +88,7 @@ module.exports = async function (deployer, network, accounts) {
     [0],
     ["_setVotingPeriod(uint256)"],
     [ethers.utils.defaultAbiCoder.encode(["uint256"], [7 * 5760])],
-    "Increase Voting Period\nGive BOBA users more time to vote on proposals"
+    "Increase Voting Period\nGive token users more time to vote on proposals"
   );
 
   // Create a Proposal to Increase Voting Delay to 2 days
@@ -97,7 +97,7 @@ module.exports = async function (deployer, network, accounts) {
     [0],
     ["_setVotingDelay(uint256)"],
     [ethers.utils.defaultAbiCoder.encode(["uint256"], [2 * 5760])],
-    "Increase Voting Delay\nAllow BOBA users more time to review proposals",
+    "Increase Voting Delay\nAllow token users more time to review proposals",
     { from: accounts[1] }
   );
 
