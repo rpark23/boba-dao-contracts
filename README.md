@@ -1,7 +1,5 @@
 # DAO explained
 
-## Overview
-
 The DAO is a fork of Compound Finance's current governance module (Governor Bravo), which is comprised of 4 main contracts:
 
 ### Token
@@ -52,7 +50,7 @@ In `GovernorBravoDelegate.sol`, modify the `_initiate` function:
     }
 ```
 
-In `GovernorBravoInterfaces.sol`, delete `GovernorAlpha` Interface:
+In `GovernorBravoInterfaces.sol`, delete the `GovernorAlpha` Interface:
 
 - Delete lines 179-182
 
