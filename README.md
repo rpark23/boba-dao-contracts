@@ -34,7 +34,7 @@ In `GovernorBravoDelegate.sol`, modify the `_initiate` function:
 
 - Change line 326 to `proposalCount = 1;`
 - Delete line 321
-- Delete parameter (`address governorAlpha`) in line 323
+- Delete parameter "`address governorAlpha`" in line 323
 
 ```
     /**
